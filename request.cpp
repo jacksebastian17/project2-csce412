@@ -1,8 +1,7 @@
-// testing commit
+#define REQUEST_CPP
 
 #include <string>
 
-#define REQUEST_CPP
 
 struct request {
     std::string source;
