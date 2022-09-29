@@ -1,4 +1,5 @@
 #ifndef REQUEST_CPP
+#endif
 #include "request.cpp"
 
 
@@ -33,5 +34,3 @@ class webserver {
         int requestStartTime;
         char serverName;
 };
-
-#endif
