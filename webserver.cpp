@@ -5,6 +5,11 @@
 
 class webserver {
     public:
+        webserver() {
+            requestStartTime = 0;
+            serverName = ' ';
+        }
+
         webserver(char c) {
             requestStartTime = 0;
             serverName = c;
