@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const int NUMWEBSERVERS = 5;
+
 request createRequest() {
     stringstream ips, ipd;
     request r;
@@ -16,31 +18,24 @@ request createRequest() {
     ipd << (rand() % 256) << "." << (rand() % 256) << "." << (rand() % 256) << "." << (rand() % 256);
     r.source = ips.str();
     r.destination = ipd.str();
-    r.processTime = rand() % 100;
+    r.processTime = rand() % 500;
     return r;
 }
 
 int main() {
-    int numWebservers;
-    int loadBalancerRuntime;
-
-    cout << "Please enter the number of servers you wish to use: ";
-    cin >> numWebservers;
-    cout << "Please enter the time you want to run the load balancer: ";
-    cin >> loadBalancerRuntime;
 
     srand(time(0));
 
     loadbalancer lb;
-    webserver webservers[10];
+    webserver webservers[NUMWEBSERVERS];
 
     for (int i = 0; i < 10; i++) {
-        request newRequest = createRequest();
+        request newRequest = (createRequest());
         lb.addRequest(newRequest);
     }
 
-    for (int i = 0; i < numWebservers; i++) {
-        webserver server((char)('A' + i));
+    for (int i = 0; i < NUMWEBSERVERS; i++) {
+        webserver server((char)(i + 65));
         webservers[i] = server;
         webservers[i].addRequest(lb.getRequest(), lb.getTime());
     }
@@ -48,10 +43,14 @@ int main() {
     // 10,000 clock cycles as per requirement of project
     while (lb.getTime() < 10000) {
         int currTime = lb.getTime();
-        if (webservers[currTime % numWebservers].isRequestDone(currTime)) {
-            request req = webservers[currTime % numWebservers].getRequest();
-            //cout << "currTime: " << currTime << ", " << webservers[currTime].getServerName() << "processed request from " << req.source << " to " << req.destination << endl;
-            webservers[currTime % numWebservers].addRequest(lb.getRequest(), currTime);
+        if (webservers[currTime % NUMWEBSERVERS].isRequestDone(currTime)) {
+            request req = webservers[currTime % NUMWEBSERVERS].getRequest();
+            cout << "At " << currTime << " " << webservers[currTime].getServerName() << " processed request from " << req.source << " to " << req.destination << endl;
+            webservers[currTime % NUMWEBSERVERS].addRequest(lb.getRequest(), currTime);
+        }
+        if (rand() % 10 == 0) {
+            request r = createRequest();
+            lb.addRequest(r);
         }
         lb.incrementTime();
     }

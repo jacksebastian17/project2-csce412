@@ -12,8 +12,8 @@ class loadbalancer {
         loadbalancer() { systemTime = 0; }
         int getTime();
         void incrementTime();
-        void addRequest(request req);
         request getRequest();
+        void addRequest(request req);
         bool isRequestqueueEmpty();
     private:
         int systemTime;

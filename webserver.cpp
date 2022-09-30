@@ -29,10 +29,7 @@ class webserver {
         }
 
         bool isRequestDone(int currTime) {
-            if (currTime > (requestStartTime + req.processTime)) {
-                return true;
-            }
-            return false;
+            return (currTime > (requestStartTime + req.processTime));
         }
     private:
         request req;
