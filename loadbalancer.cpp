@@ -2,16 +2,16 @@
 #include "loadbalancer.h"
 #endif
 
-int loadbalancer::getTime() {
+int loadbalancer::getSystemTime() {
     return systemTime;
 }
 
-void loadbalancer::incrementTime() {
+void loadbalancer::incrementSystemTime() {
     systemTime++;
 }
 
 request loadbalancer::getRequest() {
-    incrementTime();
+    incrementSystemTime();
     if (!requestqueue.empty()) {
         request r = requestqueue.front();
         requestqueue.pop();
@@ -21,7 +21,7 @@ request loadbalancer::getRequest() {
 
 void loadbalancer::addRequest(request req) {
     requestqueue.push(req);
-    incrementTime();
+    incrementSystemTime();
 }
 
 bool loadbalancer::isRequestqueueEmpty() {

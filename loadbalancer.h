@@ -10,8 +10,8 @@
 class loadbalancer {
     public:
         loadbalancer() { systemTime = 0; }
-        int getTime();
-        void incrementTime();
+        int getSystemTime();
+        void incrementSystemTime();
         request getRequest();
         void addRequest(request req);
         bool isRequestqueueEmpty();
