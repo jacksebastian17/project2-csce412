@@ -36,7 +36,7 @@ int main() {
     }
 
     for (int i = 0; i < NUMWEBSERVERS; i++) {
-        webserver server((char)('A' + i));
+        webserver server((char)(i + 65));
         webservers[i] = server;
         webservers[i].addRequest(lb.getRequest(), lb.getSystemTime());
     }
@@ -55,11 +55,12 @@ int main() {
         }
         cout << "step4" << ", ";
         if (rand() % 10 == 0) {
-            request r = createRequest();
-            lb.addRequest(r);
+            cout << "step5" << ", ";
+            lb.addRequest(createRequest());
+            cout << "step6" << ", ";
         }
-        cout << "step5" << ", ";
+        cout << "step7" << ", ";
         lb.incrementSystemTime();
-        cout << "step6" << endl;
+        cout << "step8" << endl;
     }
 }
