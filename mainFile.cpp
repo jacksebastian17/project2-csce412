@@ -1,4 +1,6 @@
 #include <iostream>
+#include "request.cpp"
+#include "webserver.cpp"
 #include "loadbalancer.h"
 #include <time.h>
 #include <ctime>
@@ -41,5 +43,16 @@ int main() {
         webserver server((char)('A' + i));
         webservers[i] = server;
         webservers[i].addRequest(lb.getRequest(), lb.getTime());
+    }
+    
+    // 10,000 clock cycles as per requirement of project
+    while (lb.getTime() < 10000) {
+        int currTime = lb.getTime();
+        if (webservers[currTime % numWebservers].isRequestDone(currTime)) {
+            request req = webservers[currTime % numWebservers].getRequest();
+            //cout << "currTime: " << currTime << ", " << webservers[currTime].getServerName() << "processed request from " << req.source << " to " << req.destination << endl;
+            webservers[currTime % numWebservers].addRequest(lb.getRequest(), currTime);
+        }
+        lb.incrementTime();
     }
 }
