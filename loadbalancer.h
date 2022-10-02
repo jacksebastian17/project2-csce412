@@ -19,3 +19,5 @@ class loadbalancer {
         int systemTime;
         std::queue<request> requestqueue;
 };
+
+#include "loadbalancer.cpp"

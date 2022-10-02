@@ -18,7 +18,7 @@ request createRequest() {
     ipaddress_dest << (rand() % 256) << "." << (rand() % 256) << "." << (rand() % 256) << "." << (rand() % 256);
     r.source = ipaddress_source.str();
     r.destination = ipaddress_dest.str();
-    r.processTime = rand() % 50;
+    r.processTime = rand() % 500;
     return r;
 }
 
@@ -36,31 +36,23 @@ int main() {
     }
 
     for (int i = 0; i < NUMWEBSERVERS; i++) {
-        webserver server((char)(i + 65));
+        webserver server((char)('A' + i));
         webservers[i] = server;
         webservers[i].addRequest(lb.getRequest(), lb.getSystemTime());
     }
     
     // 10,000 clock cycles as per requirement of project
     while (lb.getSystemTime() < 10000) {
-        cout << lb.getSystemTime() << ":  " << "empty?" << lb.isRequestqueueEmpty() << " -- ";
-        cout << "step1" << ", ";
+        //cout << lb.getSystemTime() << ":  " << "empty?" << lb.isRequestqueueEmpty() << " -- ";
         int currTime = lb.getSystemTime();
         if (webservers[currTime % NUMWEBSERVERS].isRequestDone(currTime)) {
-            cout << "step2" << ", ";
             request req = webservers[currTime % NUMWEBSERVERS].getRequest();
-            cout << "step3" << ", ";
-            cout << "At " << currTime << " " << webservers[currTime].getServerName() << " processed request from " << req.source << " to " << req.destination << ", ";
+            cout << "At " << currTime << " " << webservers[currTime % NUMWEBSERVERS].getServerName() << " processed request from " << req.source << " to " << req.destination << endl;
             webservers[currTime % NUMWEBSERVERS].addRequest(lb.getRequest(), currTime);
         }
-        cout << "step4" << ", ";
         if (rand() % 10 == 0) {
-            cout << "step5" << ", ";
             lb.addRequest(createRequest());
-            cout << "step6" << ", ";
         }
-        cout << "step7" << ", ";
         lb.incrementSystemTime();
-        cout << "step8" << endl;
     }
 }
