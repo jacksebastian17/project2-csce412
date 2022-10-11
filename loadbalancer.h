@@ -6,7 +6,9 @@
 
 #include <queue>
 
-
+/**
+ * loadbalancer class that managers webservers and the request queue
+*/
 class loadbalancer {
     public:
         loadbalancer() { systemTime = 0; }
