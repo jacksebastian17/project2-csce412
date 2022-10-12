@@ -45,7 +45,7 @@ int main() {
         request newRequest = createRequest();
         lb.addRequest(newRequest);
     }
-    cout << "Range of task times: 1 <= processTime << 500 seconds" << endl;
+    cout << "Range of task times: 1 <= processTime <= 500 seconds" << endl;
     cout << "Starting size of queue: " << lb.getRequestqueueSize() << endl;
 
     for (int i = 0; i < numWebservers; i++) {
