@@ -45,7 +45,8 @@ int main() {
         request newRequest = createRequest();
         lb.addRequest(newRequest);
     }
-    cout << "Starting size of queue:" << lb.getRequestqueueSize() << endl;
+    cout << "Range of task times: 1 <= processTime << 500 seconds" << endl;
+    cout << "Starting size of queue: " << lb.getRequestqueueSize() << endl;
 
     for (int i = 0; i < numWebservers; i++) {
         webserver server((char)('A' + i));
@@ -68,5 +69,5 @@ int main() {
         }
         lb.incrementSystemTime();
     }
-    cout << "Ending size of queue:" << lb.getRequestqueueSize() << endl;
+    cout << "Ending size of queue: " << lb.getRequestqueueSize() << endl;
 }
