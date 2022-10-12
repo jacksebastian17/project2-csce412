@@ -63,7 +63,7 @@ int main() {
             req.processTime << ") from " << req.source << " to " << req.destination << endl;
             webservers[currTime % numWebservers].addRequest(lb.getRequest(), currTime);
         }
-        if (rand() % 10 == 0) {
+        if (rand() % 50 == 0) {
             lb.addRequest(createRequest());
         }
         lb.incrementSystemTime();
