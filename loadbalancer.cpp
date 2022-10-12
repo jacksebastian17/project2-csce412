@@ -46,3 +46,11 @@ void loadbalancer::addRequest(request req) {
 bool loadbalancer::isRequestqueueEmpty() {
     return requestqueue.empty();
 }
+
+/**
+ * returns the size of the requestqueue
+ * @return integer size of the private member requestqueue
+*/
+int loadbalancer::getRequestqueueSize() {
+    return requestqueue.size();
+}

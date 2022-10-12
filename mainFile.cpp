@@ -45,6 +45,7 @@ int main() {
         request newRequest = createRequest();
         lb.addRequest(newRequest);
     }
+    cout << "Starting size of queue:" << lb.getRequestqueueSize() << endl;
 
     for (int i = 0; i < numWebservers; i++) {
         webserver server((char)('A' + i));
@@ -58,7 +59,8 @@ int main() {
         int currTime = lb.getSystemTime();
         if (webservers[currTime % numWebservers].isRequestDone(currTime)) {
             request req = webservers[currTime % numWebservers].getRequest();
-            cout << "At " << currTime << " " << webservers[currTime % numWebservers].getServerName() << " processed request from " << req.source << " to " << req.destination << endl;
+            cout << "At " << currTime << ", webserver " << webservers[currTime % numWebservers].getServerName() << " processed request (processTime = " << 
+            req.processTime << ") from " << req.source << " to " << req.destination << endl;
             webservers[currTime % numWebservers].addRequest(lb.getRequest(), currTime);
         }
         if (rand() % 10 == 0) {
@@ -66,4 +68,5 @@ int main() {
         }
         lb.incrementSystemTime();
     }
+    cout << "Ending size of queue:" << lb.getRequestqueueSize() << endl;
 }

@@ -17,6 +17,7 @@ class loadbalancer {
         request getRequest();
         void addRequest(request req);
         bool isRequestqueueEmpty();
+        int getRequestqueueSize();
     private:
         int systemTime;
         std::queue<request> requestqueue;
